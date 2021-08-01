@@ -399,6 +399,31 @@ void main()
     gl_FragColor = texture2D(source, dist_tex_coord);
 }"
 
+    readonly property string fractalShader: "\
+#ifdef GL_ES
+precision lowp float;
+#endif
+
+uniform sampler2D source;
+uniform float qt_Opacity;
+varying highp vec2 qt_TexCoord0;
+
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+uniform float u_time;
+
+void main() {
+    vec2 c = (2.0 * qt_TexCoord0 - vec2(1.5, 1.0));
+    vec2 z = vec2(0.0);
+
+    float i = 0.0;
+    for(; i <= 64.0 && dot(z, z) < 4.0; ++i) {
+        z = mat2(z, -z.y, z.x) * z + c;
+    }
+
+    gl_FragColor = vec4(vec3(i / 64.0), 1.0);
+}"
+
     readonly property string complexFogShader: "\
 #ifdef GL_ES
 precision lowp float;

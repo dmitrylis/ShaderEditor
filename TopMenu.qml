@@ -28,6 +28,7 @@ ListView {
         { text: "Ripple Effect 1", fragmentShader: Shaders.rippleEffectShader1 },
         { text: "Ripple Effect 2", fragmentShader: Shaders.rippleEffectShader2 },
         { text: "Heat haze air", fragmentShader: Shaders.heatHazeAirShader },
+        { text: "Fractal", fragmentShader: Shaders.fractalShader },
         { text: "Complex Fog", fragmentShader: Shaders.complexFogShader }
     ]
 
