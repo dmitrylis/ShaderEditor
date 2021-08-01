@@ -62,29 +62,16 @@ Window {
         }
         width: parent.width * 0.6
         fragmentShader: fragmentShaderTextArea.text
+        vertexShader: vertexShaderTextArea.text
     }
 
-    Rectangle {
+    LogWindow {
         id: logWindow
 
         anchors {
             left: parent.left
             right: parent.right
             bottom: parent.bottom
-        }
-        height: !shaderOutput.log ? 0 : 100
-        color: {
-            switch (shaderOutput.status) {
-            case ShaderEffect.Compiled: return "green"
-            case ShaderEffect.Uncompiled: return "orange"
-            case ShaderEffect.Error:
-            default: return "red"
-            }
-        }
-
-        TextEdit {
-            anchors.fill: parent
-            text: shaderOutput.log
         }
     }
 }

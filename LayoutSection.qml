@@ -4,7 +4,7 @@ Rectangle {
     property alias text: textItem.text
 
     implicitWidth: 200
-    implicitHeight: 25
+    implicitHeight: 20
     color: "lightgrey"
 
     Text {
@@ -13,7 +13,7 @@ Rectangle {
         anchors {
             verticalCenter: parent.verticalCenter
             left: parent.left
-            leftMargin: 25
+            leftMargin: 15
         }
     }
 }

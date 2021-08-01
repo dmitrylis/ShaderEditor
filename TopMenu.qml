@@ -2,8 +2,14 @@ import QtQuick 2.12
 import QtQuick.Controls 2.12
 
 ListView {
+    QtObject {
+        id: internal
+
+        property int currentShader: 0
+    }
+
     implicitWidth: 200
-    implicitHeight: 50
+    implicitHeight: 45
     orientation: ListView.Horizontal
     spacing: 5
 
@@ -27,7 +33,11 @@ ListView {
 
     delegate: Button {
         text: modelData.text
+        highlighted: index === internal.currentShader
 
-        onClicked: fragmentShaderTextArea.text = modelData.fragmentShader
+        onClicked: {
+            internal.currentShader = index
+            fragmentShaderTextArea.text = modelData.fragmentShader
+        }
     }
 }

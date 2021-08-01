@@ -8,5 +8,6 @@
         <file>ShaderTextArea.qml</file>
         <file>LayoutSection.qml</file>
         <file>sample_image.jpg</file>
+        <file>LogWindow.qml</file>
     </qresource>
 </RCC>
