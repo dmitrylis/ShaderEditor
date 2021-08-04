@@ -11,7 +11,7 @@ Item {
 
     Image {
         anchors.fill: parent
-        source: "qrc:/sample_image.jpg"
+        source: "qrc:/resources/assets/images/sample_image.jpg"
         fillMode: Image.PreserveAspectCrop
         layer.enabled: true
         layer.effect: ShaderEffect {

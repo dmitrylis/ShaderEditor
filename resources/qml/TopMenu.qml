@@ -1,5 +1,4 @@
 import QtQuick 2.12
-import QtQuick.Controls 2.12
 
 ListView {
     QtObject {
@@ -11,7 +10,6 @@ ListView {
     implicitWidth: 200
     implicitHeight: 45
     orientation: ListView.Horizontal
-    spacing: 5
 
     model: [
         { text: "Empty", fragmentShader: Shaders.emptyShader },
@@ -32,7 +30,7 @@ ListView {
         { text: "Complex Fog", fragmentShader: Shaders.complexFogShader }
     ]
 
-    delegate: Button {
+    delegate: TopMenuButton {
         text: modelData.text
         highlighted: index === internal.currentShader
 

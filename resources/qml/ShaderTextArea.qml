@@ -17,18 +17,16 @@ ScrollView {
         wrapMode: TextEdit.NoWrap
         padding: 10
 
-        background: Rectangle { anchors.fill: parent; color: "#272822" }
+        background: Rectangle { width: parent.width; height: parent.height; color: "#272822" }
         color: "#f8f8de"
         selectedTextColor: "#f8f8de"
         selectionColor: "#49483e"
 
-        font {
-            family: "Consolas"
-        }
+        font.family: "Consolas"
 
     }
 
     GlslHighlighter {
-        quickTextDocument: textArea.textDocument ///////
+        quickTextDocument: textArea.textDocument
     }
 }

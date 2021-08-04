@@ -1,6 +1,5 @@
 import QtQuick 2.12
 import QtQuick.Window 2.12
-import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 
 Window {
@@ -9,13 +8,14 @@ Window {
     visible: true
     width: 1920
     height: 1080
-    title: qsTr("Qml Shader Editor")
+    title: qsTr("Shader Editor")
     color: "#272822"
 
     TopMenu {
         id: topMenu
 
         width: parent.width
+        z: 1
     }
 
     ColumnLayout {
