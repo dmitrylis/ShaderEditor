@@ -4,8 +4,8 @@ Rectangle {
     property alias text: textItem.text
 
     implicitWidth: 200
-    implicitHeight: 20
-    color: "lightgrey"
+    implicitHeight: 30
+    color: "#33352f"
 
     Text {
         id: textItem
@@ -15,5 +15,6 @@ Rectangle {
             left: parent.left
             leftMargin: 15
         }
+        color: "white"
     }
 }

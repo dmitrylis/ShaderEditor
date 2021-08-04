@@ -8,17 +8,21 @@ GlslHighlighter::GlslHighlighter(QTextDocument *parent) : QSyntaxHighlighter(par
     /// FORMATS ///
     ///////////////
 
-    statementFormat.setForeground(QColor(225, 30, 120)); // updated
+    statementFormat.setForeground(QColor(249, 38, 106)); // done
 
-    commentFormat.setForeground(QColor(0, 0, 205));
+    commentFormat.setForeground(QColor(117, 113, 79)); // done
 
-    preprocessorFormat.setForeground(QColor(205, 0, 205));
+    preprocessorFormat.setForeground(QColor(117, 113, 79)); // done
 
-    numberFormat.setForeground(QColor(205, 0, 0));
+    numberFormat.setForeground(QColor(174, 129, 227)); // done
 
-    typesFormat.setForeground(QColor(110, 219, 224)); // updated
+    typesFormat.setForeground(QColor(88, 217, 239)); // done
 
-    swizzleFormat.setForeground(QColor(205, 0, 205));
+    keywordFormat.setForeground(QColor(249, 38, 106)); // done
+
+    uniformsFormat.setForeground(QColor(174, 129, 227)); // done
+
+    swizzleFormat.setForeground(QColor(249, 38, 106)); // done
 
     /////////////
     /// RULES ///
@@ -87,10 +91,21 @@ GlslHighlighter::GlslHighlighter(QTextDocument *parent) : QSyntaxHighlighter(par
     glslTypes.append("ivec2");
     glslTypes.append("ivec3");
     glslTypes.append("ivec4");
+    glslTypes.append("uint");
+    glslTypes.append("uvec2");
+    glslTypes.append("uvec3");
+    glslTypes.append("uvec4");
     glslTypes.append("float");
     glslTypes.append("vec2");
     glslTypes.append("vec3");
     glslTypes.append("vec4");
+    glslTypes.append("double");
+    glslTypes.append("dvec2");
+    glslTypes.append("dvec3");
+    glslTypes.append("dvec4");
+    glslTypes.append("mat2");
+    glslTypes.append("mat3");
+    glslTypes.append("mat4");
     glslTypes.append("sampler1D");
     glslTypes.append("sampler2D");
     glslTypes.append("sampler3D");
@@ -111,7 +126,7 @@ GlslHighlighter::GlslHighlighter(QTextDocument *parent) : QSyntaxHighlighter(par
     glslStorageClass.append("in");
     glslStorageClass.append("out");
     glslStorageClass.append("inout");
-    addPatternFromList(glslStorageClass, typesFormat);
+    addPatternFromList(glslStorageClass, keywordFormat);
 
     /* Functions */
     QStringList glslFunc;
@@ -214,7 +229,7 @@ GlslHighlighter::GlslHighlighter(QTextDocument *parent) : QSyntaxHighlighter(par
     glslState.append("gl_TexCoord");
     glslState.append("gl_FogFragCoord");
     glslState.append("gl_MultiTexCoord\\d+");
-    addPatternFromList(glslState, typesFormat);
+    addPatternFromList(glslState, uniformsFormat);
 
     /* Uniforms */
     QStringList glslUniform;
@@ -263,8 +278,10 @@ GlslHighlighter::GlslHighlighter(QTextDocument *parent) : QSyntaxHighlighter(par
     glslUniform.append("TEXCOORD");
     glslUniform.append("TEXCOORD0");
     glslUniform.append("SV_POSITION");
+    glslUniform.append("true");
+    glslUniform.append("false");
 
-    addPatternFromList(glslUniform, typesFormat);
+    addPatternFromList(glslUniform, uniformsFormat);
 
     /* preprocessor */
     rule.pattern = QRegExp("#.*");

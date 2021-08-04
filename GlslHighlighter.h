@@ -41,6 +41,8 @@ private:
     QTextCharFormat preprocessorFormat;
     QTextCharFormat numberFormat;
     QTextCharFormat typesFormat;
+    QTextCharFormat keywordFormat;
+    QTextCharFormat uniformsFormat;
     QTextCharFormat swizzleFormat;
 
     QQuickTextDocument* m_quickTextDocument;

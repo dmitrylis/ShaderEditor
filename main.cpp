@@ -6,8 +6,13 @@
 int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-
     QGuiApplication app(argc, argv);
+
+    // load fonts
+    QFontDatabase::addApplicationFont("qrc:/assets/fonts/consolas-regular.TTF");
+    QFontDatabase::addApplicationFont("qrc:/assets/fonts/consolas-bold.TTF");
+    QFontDatabase::addApplicationFont("qrc:/assets/fonts/consolas-italic.ttf");
+    QFontDatabase::addApplicationFont("qrc:/assets/fonts/consolas-bold-italic.ttf");
 
     qmlRegisterType<GlslHighlighter>("dln.com.highlighter", 1, 0, "GlslHighlighter");
 

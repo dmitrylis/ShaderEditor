@@ -10,6 +10,7 @@ Window {
     width: 1920
     height: 1080
     title: qsTr("Qml Shader Editor")
+    color: "#272822"
 
     TopMenu {
         id: topMenu
@@ -24,6 +25,7 @@ Window {
             bottom: logWindow.top
         }
         width: parent.width * 0.4
+        spacing: 0
 
         LayoutSection {
             Layout.fillWidth: true

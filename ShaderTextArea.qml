@@ -15,11 +15,16 @@ ScrollView {
         cursorVisible: true
         persistentSelection: true
         wrapMode: TextEdit.NoWrap
+        padding: 10
 
-        background: Rectangle { color: "#2e2f30" }
-        color: "white"
-        selectedTextColor: "white"
-        selectionColor: "#565757"
+        background: Rectangle { anchors.fill: parent; color: "#272822" }
+        color: "#f8f8de"
+        selectedTextColor: "#f8f8de"
+        selectionColor: "#49483e"
+
+        font {
+            family: "Consolas"
+        }
 
     }
 

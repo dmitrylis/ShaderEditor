@@ -9,5 +9,9 @@
         <file>LayoutSection.qml</file>
         <file>sample_image.jpg</file>
         <file>LogWindow.qml</file>
+        <file>assets/fonts/consolas-bold-italic.ttf</file>
+        <file>assets/fonts/consolas-bold.TTF</file>
+        <file>assets/fonts/consolas-italic.ttf</file>
+        <file>assets/fonts/consolas-regular.TTF</file>
     </qresource>
 </RCC>
