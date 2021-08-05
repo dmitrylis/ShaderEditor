@@ -52,7 +52,6 @@ T.Button {
                 centerIn: parent
                 verticalCenterOffset: internal.textOffset
             }
-
             text: root.text
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter

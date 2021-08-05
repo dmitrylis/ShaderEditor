@@ -5,7 +5,7 @@
         <file>resources/assets/fonts/consolas-italic.ttf</file>
         <file>resources/assets/fonts/consolas-regular.TTF</file>
         <file>resources/assets/images/sample_image.jpg</file>
-        <file>resources/qml/LayoutSection.qml</file>
+        <file>resources/qml/ShaderTextAreaHeader.qml</file>
         <file>resources/qml/LogWindow.qml</file>
         <file>resources/qml/main.qml</file>
         <file>resources/qml/qmldir</file>

@@ -1,6 +1,6 @@
 import QtQuick 2.12
 import QtQuick.Window 2.12
-import QtQuick.Layouts 1.12
+import QtQuick.Controls 1.4
 
 Window {
     visible: true
@@ -16,53 +16,43 @@ Window {
         z: 1
     }
 
-    ColumnLayout {
+    SplitView {
         anchors {
             left: parent.left
-            top: topMenu.bottom
-            bottom: logWindow.top
-        }
-        width: parent.width * 0.4
-        spacing: 0
-
-        LayoutSection {
-            Layout.fillWidth: true
-            text: "Fragment Shader"
-        }
-
-        ShaderTextArea {
-            id: fragmentShaderTextArea
-
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            text: Shaders.emptyShader
-        }
-
-        LayoutSection {
-            Layout.fillWidth: true
-            text: "Vertex Shader"
-        }
-
-        ShaderTextArea {
-            id: vertexShaderTextArea
-
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-            text: Shaders.defaultVertexShader
-        }
-    }
-
-    ShaderOutput {
-        id: shaderOutput
-
-        anchors {
             right: parent.right
             top: topMenu.bottom
             bottom: logWindow.top
         }
-        width: parent.width * 0.6
-        fragmentShader: fragmentShaderTextArea.text
-        vertexShader: vertexShaderTextArea.text
+        orientation: Qt.Horizontal
+
+        SplitView {
+            width: parent.width * 0.4
+            orientation: Qt.Vertical
+
+            ShaderTextArea {
+                id: fragmentShaderTextArea
+
+                height: parent.height * 0.5
+                text: Shaders.emptyShader
+                title: "Fragment Shader"
+            }
+
+            ShaderTextArea {
+                id: vertexShaderTextArea
+
+                height: parent.height * 0.5
+                text: Shaders.defaultVertexShader
+                title: "Vertex Shader"
+            }
+        }
+
+        ShaderOutput {
+            id: shaderOutput
+
+            width: parent.width * 0.6
+            fragmentShader: fragmentShaderTextArea.text
+            vertexShader: vertexShaderTextArea.text
+        }
     }
 
     LogWindow {

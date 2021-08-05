@@ -3,79 +3,89 @@ import QtQuick.Controls 2.12
 
 import dln.com.highlighter 1.0
 
-ScrollView {
+Item {
     property alias text: textArea.text
+    property alias title: header.text
 
-    clip: true
+    ShaderTextAreaHeader {
+        id: header
 
-    TextArea {
-        id: textArea
+        width: parent.width
+    }
 
-        selectByMouse: true
-        cursorVisible: true
-        persistentSelection: true
-        wrapMode: TextEdit.NoWrap
-        padding: 10
-        leftPadding: 50
-
-        background: Rectangle { width: parent.width; height: parent.height; color: "#272822" }
-        color: "#f8f8de"
-        selectedTextColor: "#f8f8de"
-        selectionColor: "#49483e"
-
-        font.family: "Consolas"
-
-        // current line highlight
-        FontMetrics {
-            id: fontMetrics
-            font: textArea.font
+    ScrollView {
+        anchors {
+            fill: parent
+            topMargin: header.height
         }
+        clip: true
 
-        Rectangle {
-            x: 0
-            y: textArea.cursorRectangle.y
-            height: fontMetrics.height
-            width: textArea.width
-            color: "white"
-            opacity: 0.027
-        }
+        TextArea {
+            id: textArea
 
-        // line numbers column
-        Item {
-            width: 35
-            height: parent.height
+            selectByMouse: true
+            cursorVisible: true
+            persistentSelection: true
+            wrapMode: TextEdit.NoWrap
+            padding: 10
+            leftPadding: 50
+            background: Rectangle { width: parent.width; height: parent.height; color: "#272822" }
+            color: "#f8f8de"
+            selectedTextColor: "#f8f8de"
+            selectionColor: "#49483e"
+            font.family: "Consolas"
 
-            Rectangle {
-                anchors.horizontalCenter: parent.right
-                width: 2
-                height: parent.height
-                color: "#33352f"
+            // current line highlight
+            FontMetrics {
+                id: fontMetrics
+                font: textArea.font
             }
 
-            Column {
-                anchors {
-                    right: parent.right
-                    top: parent.top
-                    rightMargin: 6
-                    topMargin: textArea.padding
+            Rectangle {
+                x: 0
+                y: textArea.cursorRectangle.y
+                height: fontMetrics.height
+                width: textArea.width
+                color: "white"
+                opacity: 0.027
+            }
+
+            // line numbers column: TODO bug on horizontal scrolling
+            Item {
+                width: 35
+                height: parent.height
+
+                Rectangle {
+                    anchors.horizontalCenter: parent.right
+                    width: 2
+                    height: parent.height
+                    color: "#33352f"
                 }
 
-                Repeater {
-                    model: textArea.lineCount
+                Column {
+                    anchors {
+                        right: parent.right
+                        top: parent.top
+                        rightMargin: 6
+                        topMargin: textArea.padding
+                    }
 
-                    Text {
-                        anchors.right: parent.right
-                        font.family: "Consolas"
-                        text: index + 1
-                        color: "#9d9d96"
+                    Repeater {
+                        model: textArea.lineCount
+
+                        Text {
+                            anchors.right: parent.right
+                            font.family: "Consolas"
+                            text: index + 1
+                            color: "#9d9d96"
+                        }
                     }
                 }
             }
         }
 
-    }
-
-    GlslHighlighter {
-        quickTextDocument: textArea.textDocument
+        GlslHighlighter {
+            quickTextDocument: textArea.textDocument
+        }
     }
 }
