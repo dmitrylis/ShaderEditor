@@ -7,85 +7,98 @@ Item {
     property alias text: textArea.text
     property alias title: header.text
 
+    clip: true
+
     ShaderTextAreaHeader {
         id: header
 
         width: parent.width
+        z: 1
     }
 
-    ScrollView {
+    Flickable {
+        id: scrollArea
+
         anchors {
             fill: parent
             topMargin: header.height
+            leftMargin: 40
         }
-        clip: true
+        leftMargin: 10
+        rightMargin: 10
+        topMargin: 10
+        bottomMargin: 10
+        boundsBehavior: Flickable.StopAtBounds
 
-        TextArea {
+        ScrollBar.vertical: ScrollBar {}
+        ScrollBar.horizontal: ScrollBar {}
+
+        TextArea.flickable: TextArea {
             id: textArea
 
+            padding: 0
             selectByMouse: true
             cursorVisible: true
             persistentSelection: true
             wrapMode: TextEdit.NoWrap
-            padding: 10
-            leftPadding: 50
             background: Rectangle { width: parent.width; height: parent.height; color: "#272822" }
             color: "#f8f8de"
             selectedTextColor: "#f8f8de"
             selectionColor: "#49483e"
             font.family: "Consolas"
+        }
+    }
 
-            // current line highlight
-            FontMetrics {
-                id: fontMetrics
-                font: textArea.font
+    // line numbers column
+    Rectangle {
+        width: scrollArea.anchors.leftMargin
+        height: parent.height
+        color: "#272822"
+
+        Rectangle {
+            anchors.horizontalCenter: parent.right
+            width: 2
+            height: parent.height
+            color: "#33352f"
+        }
+
+        Column {
+            anchors {
+                right: parent.right
+                top: parent.top
+                rightMargin: 6
+                topMargin: scrollArea.anchors.topMargin + scrollArea.contentItem.y
             }
 
-            Rectangle {
-                x: 0
-                y: textArea.cursorRectangle.y
-                height: fontMetrics.height
-                width: textArea.width
-                color: "white"
-                opacity: 0.027
-            }
+            Repeater {
+                model: textArea.lineCount
 
-            // line numbers column: TODO bug on horizontal scrolling
-            Item {
-                width: 35
-                height: parent.height
-
-                Rectangle {
-                    anchors.horizontalCenter: parent.right
-                    width: 2
-                    height: parent.height
-                    color: "#33352f"
-                }
-
-                Column {
-                    anchors {
-                        right: parent.right
-                        top: parent.top
-                        rightMargin: 6
-                        topMargin: textArea.padding
-                    }
-
-                    Repeater {
-                        model: textArea.lineCount
-
-                        Text {
-                            anchors.right: parent.right
-                            font.family: "Consolas"
-                            text: index + 1
-                            color: "#9d9d96"
-                        }
-                    }
+                Text {
+                    anchors.right: parent.right
+                    font.family: "Consolas"
+                    text: index + 1
+                    color: "#9d9d96"
                 }
             }
         }
+    }
 
-        GlslHighlighter {
-            quickTextDocument: textArea.textDocument
-        }
+    // current line highlight
+    FontMetrics {
+        id: fontMetrics
+
+        font: textArea.font
+    }
+
+    Rectangle {
+        y: scrollArea.anchors.topMargin + scrollArea.contentItem.y + textArea.cursorRectangle.y
+        height: fontMetrics.height
+        width: parent.width
+        color: "white"
+        opacity: 0.027
+    }
+
+    GlslHighlighter {
+        quickTextDocument: textArea.textDocument
     }
 }
