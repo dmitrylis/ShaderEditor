@@ -3,8 +3,6 @@ import QtQuick.Window 2.12
 import QtQuick.Layouts 1.12
 
 Window {
-    id: rootWindow
-
     visible: true
     width: 1920
     height: 1080

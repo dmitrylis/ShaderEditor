@@ -56,7 +56,7 @@ T.Button {
             text: root.text
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-            color: "white" // 58d9ef
+            color: "white"
         }
     }
 
@@ -73,14 +73,14 @@ T.Button {
             when: !root.down && root.hovered && !root.highlighted
 
             PropertyChanges { target: internal; xOffset: 20; yOffset: 10; textOffset: 3 }
-            PropertyChanges { target: textItem; color: "#bce7ee" }
+            PropertyChanges { target: textItem; color: "#58d9ef" }
         },
         State {
             name: "normalHoveredDown"
             when: root.down && root.hovered && !root.highlighted
 
             PropertyChanges { target: internal; xOffset: 25; yOffset: 15; textOffset: 6 }
-            PropertyChanges { target: textItem; color: "#8be0ee" }
+            PropertyChanges { target: textItem; color: "#58d9ef" }
         },
         State {
             name: "highlighted"
@@ -94,14 +94,14 @@ T.Button {
             when: !root.down && root.hovered && root.highlighted
 
             PropertyChanges { target: internal; xOffset: 25; yOffset: 15; textOffset: 6 }
-            PropertyChanges { target: textItem; color: "#2bd2ef" }
+            PropertyChanges { target: textItem; color: "white" }
         },
         State {
             name: "highlightedHoveredDown"
             when: root.down && root.hovered && root.highlighted
 
             PropertyChanges { target: internal; xOffset: 30; yOffset: 20; textOffset: 9 }
-            PropertyChanges { target: textItem; color: "#01cbee" }
+            PropertyChanges { target: textItem; color: "white" }
         }
     ]
 }
