@@ -25,12 +25,28 @@ ScrollView {
 
         font.family: "Consolas"
 
+        // current line highlight
+        FontMetrics {
+            id: fontMetrics
+            font: textArea.font
+        }
+
+        Rectangle {
+            x: 0
+            y: textArea.cursorRectangle.y
+            height: fontMetrics.height
+            width: textArea.width
+            color: "white"
+            opacity: 0.027
+        }
+
+        // line numbers column
         Item {
             width: 35
             height: parent.height
 
             Rectangle {
-                anchors.right: parent.right
+                anchors.horizontalCenter: parent.right
                 width: 2
                 height: parent.height
                 color: "#33352f"
