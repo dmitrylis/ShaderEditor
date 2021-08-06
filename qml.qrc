@@ -14,5 +14,6 @@
         <file>resources/qml/ShaderTextArea.qml</file>
         <file>resources/qml/TopMenu.qml</file>
         <file>resources/qml/TopMenuButton.qml</file>
+        <file>resources/qml/TopMenuButton2.qml</file>
     </qresource>
 </RCC>

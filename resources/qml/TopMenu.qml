@@ -8,8 +8,9 @@ ListView {
     }
 
     implicitWidth: 200
-    implicitHeight: 45
+    implicitHeight: 55
     orientation: ListView.Horizontal
+    spacing: 10
 
     model: [
         { text: "Empty", fragmentShader: Shaders.emptyShader },
@@ -30,13 +31,17 @@ ListView {
         { text: "Complex Fog", fragmentShader: Shaders.complexFogShader }
     ]
 
-    delegate: TopMenuButton {
+    delegate: TopMenuButton2 {
         text: modelData.text
         highlighted: index === internal.currentShader
+        z: highlighted ? 2 : 1
 
         onClicked: {
             internal.currentShader = index
             fragmentShaderTextArea.text = modelData.fragmentShader
+            vertexShaderTextArea.text = Shaders.defaultVertexShader
         }
     }
+    header: Item { width: 10; height: 1 }
+    footer: Item { width: 10; height: 1 }
 }
