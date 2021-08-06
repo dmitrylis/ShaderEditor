@@ -1,4 +1,5 @@
 import QtQuick 2.12
+import QtQuick.Dialogs 1.2
 
 Item {
     id: root
@@ -10,6 +11,8 @@ Item {
     property real time: 0
 
     Image {
+        id: sourceImage
+
         anchors.fill: parent
         source: "qrc:/resources/assets/images/sample_image.jpg"
         fillMode: Image.PreserveAspectCrop
@@ -44,6 +47,11 @@ Item {
 
         anchors.fill: parent
         hoverEnabled: true
+        cursorShape: Qt.PointingHandCursor
+
+        onClicked: {
+            fileDialog.open()
+        }
     }
 
     Timer {
@@ -53,6 +61,21 @@ Item {
 
         onTriggered: {
             root.time += 0.01
+        }
+    }
+
+    FileDialog {
+        id: fileDialog
+
+        title: "Please choose a picture"
+        folder: shortcuts.pictures
+        nameFilters: [ "Image files (*.jpg *.jpeg *.png)" ]
+
+        onAccepted: {
+            const files = fileDialog.fileUrls
+            if (files.length > 0) {
+                sourceImage.source = files[0]
+            }
         }
     }
 }
