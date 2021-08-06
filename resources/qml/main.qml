@@ -32,7 +32,7 @@ Window {
             ShaderTextArea {
                 id: fragmentShaderTextArea
 
-                height: parent.height * 0.5
+                height: parent.height * 0.6
                 text: Shaders.emptyShader
                 title: "Fragment Shader"
             }
@@ -40,7 +40,7 @@ Window {
             ShaderTextArea {
                 id: vertexShaderTextArea
 
-                height: parent.height * 0.5
+                height: parent.height * 0.4
                 text: Shaders.defaultVertexShader
                 title: "Vertex Shader"
             }
