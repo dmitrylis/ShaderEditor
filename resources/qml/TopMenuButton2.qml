@@ -11,6 +11,7 @@ T.Button {
         property real topOffset
         property real btnScale
         property color bgColor
+        property int outlineWidth: 7
 
         Behavior on topOffset { NumberAnimation { easing.type: Easing.OutBack; duration: 300 } }
         Behavior on btnScale { NumberAnimation { easing.type: Easing.OutBack; duration: 300 } }
@@ -20,6 +21,35 @@ T.Button {
     implicitHeight: 55
 
     background: Item {
+        Rectangle {
+            anchors {
+                fill: bgRect
+                margins: -internal.outlineWidth
+            }
+            color: "#272822"
+            radius: bgRect.radius + internal.outlineWidth
+            scale: internal.btnScale
+
+            layer {
+                enabled: true
+                effect: ShaderEffect {
+                    fragmentShader: "\
+                        #ifdef GL_ES
+                        precision lowp float;
+                        #endif
+
+                        uniform sampler2D source;
+                        uniform float qt_Opacity;
+                        varying highp vec2 qt_TexCoord0;
+
+                        void main() {
+                            vec4 p = texture2D(source, qt_TexCoord0);
+                            gl_FragColor = step(0.8, qt_TexCoord0.y) * p * qt_Opacity;
+                        }"
+                }
+            }
+        }
+
         Rectangle {
             id: bgRect
 
