@@ -21,32 +21,24 @@ T.Button {
     implicitHeight: 55
 
     background: Item {
-        Rectangle {
+        scale: internal.btnScale
+
+        Item {
             anchors {
-                fill: bgRect
-                margins: -internal.outlineWidth
+                horizontalCenter: bgRect.horizontalCenter
+                bottom: bgRect.bottom
+                bottomMargin: -internal.outlineWidth
             }
-            color: "#272822"
-            radius: bgRect.radius + internal.outlineWidth
-            scale: internal.btnScale
+            width: childrenRect.width
+            height: childrenRect.height * 0.2
+            clip: true
 
-            layer {
-                enabled: true
-                effect: ShaderEffect {
-                    fragmentShader: "\
-                        #ifdef GL_ES
-                        precision lowp float;
-                        #endif
-
-                        uniform sampler2D source;
-                        uniform float qt_Opacity;
-                        varying highp vec2 qt_TexCoord0;
-
-                        void main() {
-                            vec4 p = texture2D(source, qt_TexCoord0);
-                            gl_FragColor = step(0.8, qt_TexCoord0.y) * p * qt_Opacity;
-                        }"
-                }
+            Rectangle {
+                anchors.bottom: parent.bottom
+                width: bgRect.width + 2 * internal.outlineWidth
+                height: bgRect.height + 2 * internal.outlineWidth
+                color: "#272822"
+                radius: bgRect.radius + internal.outlineWidth
             }
         }
 
@@ -60,7 +52,6 @@ T.Button {
             width: parent.width
             height: parent.height - 18
             radius: 9
-            scale: internal.btnScale
             color: internal.bgColor
 
             layer {
@@ -79,6 +70,7 @@ T.Button {
 
     contentItem: Item {
         width: Math.max(textItem.width + 30, 90)
+        scale: internal.btnScale
 
         Text {
             id: textItem
@@ -90,7 +82,6 @@ T.Button {
             text: root.text
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-            scale: internal.btnScale
         }
     }
 
