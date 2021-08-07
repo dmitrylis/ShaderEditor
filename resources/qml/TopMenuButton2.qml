@@ -29,11 +29,13 @@ T.Button {
                 bottom: bgRect.bottom
                 bottomMargin: -internal.outlineWidth
             }
-            width: childrenRect.width
-            height: childrenRect.height * 0.2
+            width: outlineRect.width
+            height: outlineRect.height * 0.2
             clip: true
 
             Rectangle {
+                id: outlineRect
+
                 anchors.bottom: parent.bottom
                 width: bgRect.width + 2 * internal.outlineWidth
                 height: bgRect.height + 2 * internal.outlineWidth
