@@ -374,7 +374,7 @@ uniform float u_time;
 
 void main(){
     float intensity = 0.06;
-    vec2 p = -1.0 + 2.0 * qt_TexCoord0 - vec2(u_mouse.x / u_resolution.x - 0.5, u_mouse.y / u_resolution.y - 0.5);
+    vec2 p = -1.0 + 2.0 * qt_TexCoord0 - u_mouse + 0.5;
     float cLength = length(p);
 
     vec2 uv = qt_TexCoord0 + (p / cLength) * cos(cLength * 15.0 - u_time * 4.0) * intensity;

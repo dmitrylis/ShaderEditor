@@ -27,6 +27,7 @@ Column {
         }
 
         property var menuModel: [
+            [ "Uniforms", function() {} ],
             [ "Source", fileDialog.open ],
             [ fillModeText(), switchFillMode ]
         ]

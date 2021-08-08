@@ -6,9 +6,6 @@ import "effects"
 T.Button {
     id: root
 
-    width: 60
-    height: 60
-
     QtObject {
         id: internal
 
