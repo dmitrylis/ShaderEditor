@@ -15,6 +15,7 @@ ListView {
             { text: "Greyscale", fragmentShader: Shaders.greyscaleShader },
             { text: "Flag", fragmentShader: Shaders.russiaFlagShader },
             { text: "Circle", fragmentShader: Shaders.circleShader },
+            { text: "Magnifier Glass", fragmentShader: Shaders.magnifierGlassShader },
             { text: "Magic Lens", fragmentShader: Shaders.magicLensShader },
             { text: "Distance Field", fragmentShader: Shaders.distanceFieldShader },
             { text: "Polar Coordinates 1", fragmentShader: Shaders.polarCoordinatesShader1 },

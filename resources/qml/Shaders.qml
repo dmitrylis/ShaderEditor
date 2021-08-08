@@ -218,6 +218,32 @@ void main(){
     gl_FragColor = vec4(color, 1.0);
 }"
 
+   readonly property string magnifierGlassShader: "\
+#ifdef GL_ES
+precision lowp float;
+#endif
+
+uniform sampler2D source;
+uniform float qt_Opacity;
+varying highp vec2 qt_TexCoord0;
+
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+uniform float u_time;
+
+float plot(float x) {
+    return 40.0 * pow(x, 4.0) + 0.8;
+}
+
+void main() {
+    vec2 st = qt_TexCoord0 - u_mouse;
+
+    float len = length(st);
+    st = st * (len < 0.3 ? plot(len) : 1.0) + u_mouse;
+
+    gl_FragColor = texture2D(source, st);
+}"
+
     readonly property string magicLensShader: "\
 #ifdef GL_ES
 precision lowp float;
