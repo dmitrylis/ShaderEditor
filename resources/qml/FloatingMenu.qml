@@ -5,15 +5,17 @@ Column {
         id: internal
 
         function fillModeText() {
+            const prefix = "Fill Mode:\n"
+
             switch (sourceImage.fillMode) {
-            case Image.Stretch: return "Stretch"
-            case Image.PreserveAspectFit: return "Fit"
-            case Image.PreserveAspectCrop: return "Crop"
-            case Image.Tile: return "Tile"
-            case Image.TileVertically: return "TileV"
-            case Image.TileHorizontally: return "TileH"
-            case Image.Pad: return "Pad"
-            default: return "unknown"
+            case Image.Stretch: return prefix + "Stretch"
+            case Image.PreserveAspectFit: return prefix + "Fit"
+            case Image.PreserveAspectCrop: return prefix + "Crop"
+            case Image.Tile: return prefix + "Tile"
+            case Image.TileVertically: return prefix + "TileV"
+            case Image.TileHorizontally: return prefix + "TileH"
+            case Image.Pad: return prefix + "Pad"
+            default: return prefix + "unknown"
             }
         }
 
@@ -27,8 +29,8 @@ Column {
         }
 
         property var menuModel: [
-            [ "Uniforms", customUniforms.toggleVisible ],
-            [ "Source", fileDialog.open ],
+            [ "Custom\nUniforms", customUniforms.toggleVisible ],
+            [ "Open\nImage", fileDialog.open ],
             [ fillModeText(), switchFillMode ]
         ]
     }

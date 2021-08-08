@@ -15,6 +15,7 @@ Item {
     function reset() {
         root.name = ""
         root.value = 0.0
+        spinbox.value = 0
     }
 
     width: ListView.view ? ListView.view.width : 200
@@ -31,7 +32,7 @@ Item {
         }
         //color: "white"
         selectByMouse: true
-        placeholderText: "Set name"
+        placeholderText: "Set new uniform name"
     }
 
     SpinBox {
@@ -54,7 +55,7 @@ Item {
         valueFromText: function(text, locale) { return Number.fromLocaleString(locale, text) * 100 }
 
         Component.onCompleted: {
-            spinbox.value = root.value * 100.0
+            spinbox.value = root.value * 100
         }
 
         onValueModified: {
