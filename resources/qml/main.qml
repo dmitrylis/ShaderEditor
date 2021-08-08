@@ -19,7 +19,7 @@ Window {
     SplitView {
         anchors {
             left: parent.left
-            right: parent.right
+            right: customUniforms.left
             top: topMenu.bottom
             bottom: logWindow.top
         }
@@ -52,6 +52,16 @@ Window {
             width: parent.width * 0.6
             fragmentShader: fragmentShaderTextArea.text
             vertexShader: vertexShaderTextArea.text
+        }
+    }
+
+    CustomUniforms {
+        id: customUniforms
+
+        anchors {
+            right: parent.right
+            top: topMenu.bottom
+            bottom: logWindow.top
         }
     }
 

@@ -10,13 +10,13 @@ int main(int argc, char *argv[])
 {
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
-    QQmlApplicationEngine engine;
 
     QSurfaceFormat format;
     format.setSamples(8);
     QSurfaceFormat::setDefaultFormat(format);
 
     DynamicPropertyHandler dynamicPropertyHandler;
+    QQmlApplicationEngine engine; // create objects before the engine!
 
     // registration of types and set context properties
     qmlRegisterType<GlslHighlighter>("dln.com.highlighter", 1, 0, "GlslHighlighter");

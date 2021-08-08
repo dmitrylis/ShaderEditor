@@ -18,5 +18,6 @@
         <file>resources/qml/FloatingButton.qml</file>
         <file>resources/qml/effects/ShadowEffect.qml</file>
         <file>resources/qml/FloatingMenu.qml</file>
+        <file>resources/qml/CustomUniforms.qml</file>
     </qresource>
 </RCC>

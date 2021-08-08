@@ -16,11 +16,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     GlslHighlighter.cpp \
-    DynamicPropertyHandler.cpp
+    DynamicPropertyHandler.cpp \
+    DynamicPropertyModel.cpp
 
 HEADERS += \
     GlslHighlighter.h \
-    DynamicPropertyHandler.h
+    DynamicPropertyHandler.h \
+    DynamicPropertyModel.h
 
 RESOURCES += qml.qrc
 

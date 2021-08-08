@@ -30,11 +30,10 @@ Item {
             mesh: GridMesh { resolution: Qt.size(16, 16) }
 
             Component.onCompleted: {
+                _dynamicPropertyHandler.registerSourceObject(shaderEffect)
+
                 root.status = status
                 root.log = log
-
-                // TODO: test code
-                _dynamicPropertyHandler.assignProperty(shaderEffect, "testProp", 0.5)
             }
 
             onStatusChanged: {

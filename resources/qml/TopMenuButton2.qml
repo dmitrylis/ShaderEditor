@@ -107,21 +107,21 @@ T.Button {
             name: "highlighted"
             when: !root.down && !root.hovered && root.highlighted
 
-            PropertyChanges { target: internal; topOffset: 8; btnScale: 1.07; bgColor: "#8b8b85" }
+            PropertyChanges { target: internal; topOffset: 8; btnScale: 1.07; bgColor: "#a8a8a1" }
             PropertyChanges { target: textItem; color: "black" }
         },
         State {
             name: "highlightedHovered"
             when: !root.down && root.hovered && root.highlighted
 
-            PropertyChanges { target: internal; topOffset: 8; btnScale: 1.14; bgColor: "#7f7f7a" }
+            PropertyChanges { target: internal; topOffset: 8; btnScale: 1.14; bgColor: "#8b8b85" }
             PropertyChanges { target: textItem; color: "black" }
         },
         State {
             name: "highlightedHoveredDown"
             when: root.down && root.hovered && root.highlighted
 
-            PropertyChanges { target: internal; topOffset: 8; btnScale: 1.07; bgColor: "#7f7f7a" }
+            PropertyChanges { target: internal; topOffset: 8; btnScale: 1.07; bgColor: "#8b8b85" }
             PropertyChanges { target: textItem; color: "black" }
         }
     ]
