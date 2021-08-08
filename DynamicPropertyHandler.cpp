@@ -15,26 +15,38 @@ void DynamicPropertyHandler::registerSourceObject(QObject *object)
     m_sourceObject = object;
 }
 
-void DynamicPropertyHandler::assignProperty(const QString& name, const QVariant &value)
+bool DynamicPropertyHandler::assignProperty(const QString& name, const QVariant &value)
 {
     if (m_sourceObject && m_dynamicPropertyModel->append(name, value))
     {
         m_sourceObject->setProperty(name.toStdString().c_str(), value);
+
+        return true;
     }
+
+    return false;
 }
 
-void DynamicPropertyHandler::removeProperty(const QString &name)
+bool DynamicPropertyHandler::removeProperty(const QString &name)
 {
     if (m_sourceObject && m_dynamicPropertyModel->remove(name))
     {
         m_sourceObject->setProperty(name.toStdString().c_str(), QVariant());
+
+        return true;
     }
+
+    return false;
 }
 
-void DynamicPropertyHandler::updateProperty(const QString &name, const QVariant &value)
+bool DynamicPropertyHandler::updateProperty(const QString &name, const QVariant &value)
 {
     if (m_sourceObject && m_dynamicPropertyModel->update(name, value))
     {
         m_sourceObject->setProperty(name.toStdString().c_str(), value);
+
+        return true;
     }
+
+    return false;
 }

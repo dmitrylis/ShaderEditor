@@ -17,9 +17,9 @@ public:
 
     Q_INVOKABLE void registerSourceObject(QObject *object);
 
-    Q_INVOKABLE void assignProperty(const QString& name, const QVariant &value);
-    Q_INVOKABLE void removeProperty(const QString& name);
-    Q_INVOKABLE void updateProperty(const QString& name, const QVariant &value);
+    Q_INVOKABLE bool assignProperty(const QString& name, const QVariant &value);
+    Q_INVOKABLE bool removeProperty(const QString& name);
+    Q_INVOKABLE bool updateProperty(const QString& name, const QVariant &value);
 
 protected:
     DynamicPropertyModel *m_dynamicPropertyModel;

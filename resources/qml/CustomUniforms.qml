@@ -3,71 +3,65 @@ import QtQuick.Controls 2.12
 
 Rectangle {
     function toggleVisible() {
-        if (width === 200) {
+        if (width === 400) {
             width = 0
         }
         else {
-            width = 200
+            width = 400
         }
     }
 
     width: 0
     visible: width > 0
     color: "#33352f"
+    clip: true
 
     Behavior on width { NumberAnimation { easing.type: Easing.OutBack; duration: 300 } }
 
     ListView {
-        anchors.fill: parent
+        anchors {
+            fill: parent
+            margins: 15
+        }
+        spacing: 10
         model: _dynamicPropertyHandler.dynamicPropertyModel
-        delegate: Rectangle {
+
+        header: Item {
             width: ListView.view.width
-            height: 40
+            height: headerDelegate.height + ListView.view.spacing
 
-            Row {
-                anchors {
-                    left: parent.left
-                    verticalCenter: parent.verticalCenter
-                    leftMargin: 15
-                }
-                spacing: 10
+            CustomUniformDelegate {
+                id: headerDelegate
 
-                Text {
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: NameRole + "  " + ValueRole
-                }
+                width: parent.width
+                actionText: "+"
 
-                Button {
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: "u"
-                    width: 40
-
-                    onClicked: {
-                        _dynamicPropertyHandler.updateProperty(NameRole, 0.9) // TODO: need to open popup and set fields
+                onActionClicked: {
+                    if (!name || !!name.match(/^ *$/)) {
+                        return // TODO: show dialog maybe
                     }
-                }
 
-                Button {
-                    anchors.verticalCenter: parent.verticalCenter
-                    text: "x"
-                    width: 40
-
-                    onClicked: {
-                        _dynamicPropertyHandler.removeProperty(NameRole)
+                    if (_dynamicPropertyHandler.assignProperty(name, value)) {
+                        headerDelegate.reset()
                     }
+
+                    // TODO: show dialog maybe
                 }
             }
         }
 
-        footer: Button {
-            width: ListView.view.width
-            height: 50
-            text: "+ add"
+        delegate: CustomUniformDelegate {
+            name: NameRole
+            value: ValueRole
+            actionText: "x"
+            readOnly: true
 
-            onClicked: {
-                // TODO: need to open popup and set fields
-                _dynamicPropertyHandler.assignProperty("testProp", 1.0)
-                _dynamicPropertyHandler.assignProperty("testProp2", 1.0)
+            onValueModified: {
+                _dynamicPropertyHandler.updateProperty(NameRole, value)
+            }
+
+            onActionClicked: {
+                _dynamicPropertyHandler.removeProperty(NameRole)
             }
         }
     }

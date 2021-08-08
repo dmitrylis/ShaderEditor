@@ -19,5 +19,6 @@
         <file>resources/qml/effects/ShadowEffect.qml</file>
         <file>resources/qml/FloatingMenu.qml</file>
         <file>resources/qml/CustomUniforms.qml</file>
+        <file>resources/qml/CustomUniformDelegate.qml</file>
     </qresource>
 </RCC>
