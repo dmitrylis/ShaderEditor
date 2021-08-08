@@ -218,6 +218,29 @@ void main(){
     gl_FragColor = vec4(color, 1.0);
 }"
 
+    readonly property string magicLensShader: "\
+#ifdef GL_ES
+precision lowp float;
+#endif
+
+uniform sampler2D source;
+uniform float qt_Opacity;
+varying highp vec2 qt_TexCoord0;
+
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+uniform float u_time;
+
+void main() {
+    vec2 st = qt_TexCoord0 - u_mouse;
+
+    vec2 uv = st;
+    float len = length(st);
+    uv = normalize(st) * clamp(0.0, 0.3, len);
+
+    gl_FragColor = texture2D(source, uv + u_mouse);
+}"
+
     readonly property string distanceFieldShader: "\
 #ifdef GL_ES
 precision lowp float;

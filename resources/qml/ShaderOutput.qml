@@ -19,7 +19,7 @@ Item {
         layer.enabled: true
         layer.effect: ShaderEffect {
             property vector2d u_resolution: Qt.vector2d(root.width, root.height)
-            property vector2d u_mouse: Qt.vector2d(mouseArea.mouseX, mouseArea.mouseY)
+            property vector2d u_mouse: Qt.vector2d(mouseArea.mouseX / root.width, mouseArea.mouseY / root.height)
             property real u_time: root.time
 
             vertexShader: root.vertexShader
