@@ -18,6 +18,8 @@ Item {
         fillMode: Image.PreserveAspectCrop
         layer.enabled: true
         layer.effect: ShaderEffect {
+            id: shaderEffect
+
             property vector2d u_resolution: Qt.vector2d(root.width, root.height)
             property vector2d u_mouse: Qt.vector2d(mouseArea.mouseX / root.width, mouseArea.mouseY / root.height)
             property real u_time: root.time
@@ -30,6 +32,9 @@ Item {
             Component.onCompleted: {
                 root.status = status
                 root.log = log
+
+                // TODO: test code
+                _dynamicPropertyHandler.assignProperty(shaderEffect, "testProp", 0.5)
             }
 
             onStatusChanged: {
@@ -47,11 +52,6 @@ Item {
 
         anchors.fill: parent
         hoverEnabled: true
-        cursorShape: Qt.PointingHandCursor
-
-        onClicked: {
-            fileDialog.open()
-        }
     }
 
     Timer {
@@ -61,6 +61,14 @@ Item {
 
         onTriggered: {
             root.time += 0.01
+        }
+    }
+
+    FloatingMenu {
+        anchors {
+            right: parent.right
+            bottom: parent.bottom
+            margins: 20
         }
     }
 

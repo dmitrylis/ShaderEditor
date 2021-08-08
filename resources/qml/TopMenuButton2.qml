@@ -2,6 +2,8 @@ import QtQuick 2.12
 import QtQuick.Templates 2.12 as T
 import QtGraphicalEffects 1.12
 
+import "effects"
+
 T.Button {
     id: root
 
@@ -55,17 +57,9 @@ T.Button {
             height: parent.height - 18
             radius: 9
             color: internal.bgColor
-
             layer {
                 enabled: true
-                effect: DropShadow {
-                    horizontalOffset: 0
-                    verticalOffset: 6
-                    radius: 12
-                    samples: 2 * radius + 1
-                    cached: true
-                    color: "#66000000"
-                }
+                effect: ShadowEffect {}
             }
         }
     }

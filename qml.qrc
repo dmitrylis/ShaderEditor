@@ -15,5 +15,8 @@
         <file>resources/qml/TopMenu.qml</file>
         <file>resources/qml/TopMenuButton.qml</file>
         <file>resources/qml/TopMenuButton2.qml</file>
+        <file>resources/qml/FloatingButton.qml</file>
+        <file>resources/qml/effects/ShadowEffect.qml</file>
+        <file>resources/qml/FloatingMenu.qml</file>
     </qresource>
 </RCC>
