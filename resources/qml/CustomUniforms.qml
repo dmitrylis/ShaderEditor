@@ -3,11 +3,11 @@ import QtQuick.Controls 2.12
 
 Rectangle {
     function toggleVisible() {
-        if (width === 400) {
+        if (width === 385) {
             width = 0
         }
         else {
-            width = 400
+            width = 385
         }
     }
 
