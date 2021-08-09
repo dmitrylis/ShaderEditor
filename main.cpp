@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
     QFontDatabase::addApplicationFont("qrc:/resources/assets/fonts/consolas-bold-italic.ttf");
 
     // types registration
-    qmlRegisterType<GlslHighlighter>("dln.com.highlighter", 1, 0, "GlslHighlighter");
+    qmlRegisterType<GlslHighlighter>("com.dln.highlighter", 1, 0, "GlslHighlighter");
 
     // objects creation
     DynamicPropertyHandler dynamicPropertyHandler;
