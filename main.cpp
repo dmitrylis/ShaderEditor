@@ -18,18 +18,21 @@ int main(int argc, char *argv[])
     format.setSamples(8);
     QSurfaceFormat::setDefaultFormat(format);
 
-    DynamicPropertyHandler dynamicPropertyHandler;
-    QQmlApplicationEngine engine; // create objects before the engine!
-
-    // registration of types and set context properties
-    qmlRegisterType<GlslHighlighter>("dln.com.highlighter", 1, 0, "GlslHighlighter");
-    engine.rootContext()->setContextProperty("_dynamicPropertyHandler", &dynamicPropertyHandler);
-
-    // load fonts
+    // fonts loading
     QFontDatabase::addApplicationFont("qrc:/resources/assets/fonts/consolas-regular.TTF");
     QFontDatabase::addApplicationFont("qrc:/resources/assets/fonts/consolas-bold.TTF");
     QFontDatabase::addApplicationFont("qrc:/resources/assets/fonts/consolas-italic.ttf");
     QFontDatabase::addApplicationFont("qrc:/resources/assets/fonts/consolas-bold-italic.ttf");
+
+    // types registration
+    qmlRegisterType<GlslHighlighter>("dln.com.highlighter", 1, 0, "GlslHighlighter");
+
+    // objects creation
+    DynamicPropertyHandler dynamicPropertyHandler;
+    QQmlApplicationEngine engine; // create objects before the engine!
+
+    // context properties setting
+    engine.rootContext()->setContextProperty("_dynamicPropertyHandler", &dynamicPropertyHandler);
 
     const QUrl url(QStringLiteral("qrc:/resources/qml/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
