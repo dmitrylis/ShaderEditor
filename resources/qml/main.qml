@@ -32,7 +32,7 @@ Window {
             ShaderTextArea {
                 id: fragmentShaderTextArea
 
-                height: parent.height * 0.6
+                height: parent.height * 0.5
                 text: Shaders.emptyShader
                 title: "Fragment Shader"
             }
@@ -40,7 +40,7 @@ Window {
             ShaderTextArea {
                 id: vertexShaderTextArea
 
-                height: parent.height * 0.4
+                height: parent.height * 0.5
                 text: Shaders.defaultVertexShader
                 title: "Vertex Shader"
             }
@@ -73,5 +73,11 @@ Window {
             right: parent.right
             bottom: parent.bottom
         }
+    }
+
+    Dialogs {
+        id: dialogs
+
+        anchors.fill: parent
     }
 }

@@ -2,18 +2,27 @@
 #define DYNAMICPROPERTYMODEL_H
 
 #include <QAbstractListModel>
+#include <QSet>
+#include <QQuickItem>
+
+namespace {
+const QSet<QString> RESERVED_NAMES { "source", "qt_Opacity", "qt_TexCoord0", "gl_FragColor", "u_resolution", "u_mouse", "u_time" }; // TODO: store in highlighter
+}
+
 
 struct Property {
     Property(const QString& name) : m_name(name) {}
-    Property(const QString& name, const QVariant &value) : m_name(name), m_value(value) {}
+    Property(const QString& name, int type, const QVariant &value, QQuickItem *object = nullptr) : m_name(name), m_type(type), m_value(value), m_object(object) {}
 
     bool operator== (const Property& other) const
     {
-        return this->m_name == other.m_name;
+        return this->m_name == other.m_name && !RESERVED_NAMES.contains(other.m_name);
     }
 
     QString m_name;
+    int m_type;
     QVariant m_value;
+    QQuickItem *m_object; // nullptr for simple copyable types
 };
 
 class DynamicPropertyModel : public QAbstractListModel
@@ -23,6 +32,7 @@ class DynamicPropertyModel : public QAbstractListModel
 public:
     enum PropertyRoles {
         NameRole = Qt::UserRole + 1,
+        TypeRole,
         ValueRole
     };
     Q_ENUM(PropertyRoles)
@@ -34,9 +44,11 @@ public:
     bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
     QHash<int, QByteArray> roleNames() const override;
 
-    bool append(const QString& name, const QVariant &value);
+    bool prepend(const QString& name, int type, const QVariant &value, QQuickItem *object = nullptr);
     bool remove(const QString& name);
     bool update(const QString& name, const QVariant &value);
+
+    QQuickItem *object(const QString& name) const;
 
 protected:
     QList<Property> m_propertyList;

@@ -24,6 +24,8 @@ QVariant DynamicPropertyModel::data(const QModelIndex &index, int role) const
     {
     case PropertyRoles::NameRole:
         return QVariant::fromValue(currentProperty.m_name);
+    case PropertyRoles::TypeRole:
+        return QVariant::fromValue(currentProperty.m_type);
     case PropertyRoles::ValueRole:
         return QVariant::fromValue(currentProperty.m_value);
     default:
@@ -40,13 +42,17 @@ bool DynamicPropertyModel::setData(const QModelIndex &index, const QVariant &val
         return false;
     }
 
+    Property& currentProperty = m_propertyList[index.row()];
     switch (role)
     {
     case PropertyRoles::NameRole:
-        m_propertyList[index.row()].m_name = value.toString();
+        currentProperty.m_name = value.toString();
+        break;
+    case PropertyRoles::TypeRole:
+        currentProperty.m_type = value.toInt();
         break;
     case PropertyRoles::ValueRole:
-        m_propertyList[index.row()].m_value = value;
+        currentProperty.m_value = value;
         break;
     default:
         QAbstractListModel::setData(index, value, role);
@@ -60,21 +66,22 @@ QHash<int, QByteArray> DynamicPropertyModel::roleNames() const
 {
     QHash<int, QByteArray> roles;
     roles[PropertyRoles::NameRole] = "NameRole";
+    roles[PropertyRoles::TypeRole] = "TypeRole";
     roles[PropertyRoles::ValueRole] = "ValueRole";
     return roles;
 }
 
-bool DynamicPropertyModel::append(const QString &name, const QVariant &value)
+bool DynamicPropertyModel::prepend(const QString &name, int type, const QVariant &value, QQuickItem *object)
 {
-    Property newProperty(name, value);
+    Property newProperty(name, type, value, object);
 
     if (m_propertyList.contains(newProperty))
     {
         return false;
     }
 
-    beginInsertRows(QModelIndex(), rowCount(), rowCount());
-    m_propertyList.append(newProperty);
+    beginInsertRows(QModelIndex(), 0, 0);
+    m_propertyList.prepend(newProperty);
     endInsertRows();
 
     return true;
@@ -89,10 +96,10 @@ bool DynamicPropertyModel::remove(const QString &name)
         return false;
     }
 
-    const int entityIndex = m_propertyList.indexOf(currentProperty);
+    const int propertyIndex = m_propertyList.indexOf(currentProperty);
 
-    beginRemoveRows(QModelIndex(), entityIndex, entityIndex);
-    m_propertyList.removeAt(entityIndex);
+    beginRemoveRows(QModelIndex(), propertyIndex, propertyIndex);
+    m_propertyList.removeAt(propertyIndex);
     endRemoveRows();
 
     return true;
@@ -107,8 +114,8 @@ bool DynamicPropertyModel::update(const QString &name, const QVariant &value)
         return false;
     }
 
-    const int entityIndex = m_propertyList.indexOf(currentProperty);
-    const QModelIndex modelIndex = index(entityIndex);
+    const int propertyIndex = m_propertyList.indexOf(currentProperty);
+    const QModelIndex modelIndex = index(propertyIndex);
 
     if (setData(modelIndex, value, PropertyRoles::ValueRole))
     {
@@ -117,4 +124,14 @@ bool DynamicPropertyModel::update(const QString &name, const QVariant &value)
     }
 
     return false; // we will not reach this line
+}
+
+QQuickItem *DynamicPropertyModel::object(const QString& name) const
+{
+    auto result = std::find(m_propertyList.begin(), m_propertyList.end(), Property(name));
+    if (result != m_propertyList.end())
+    {
+        return (*result).m_object;
+    }
+    return nullptr;
 }

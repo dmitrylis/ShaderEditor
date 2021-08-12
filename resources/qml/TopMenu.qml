@@ -1,5 +1,4 @@
 import QtQuick 2.12
-import QtQuick.Controls 2.12
 
 ListView {
     QtObject {
@@ -49,31 +48,15 @@ ListView {
                 vertexShaderTextArea.text = Shaders.defaultVertexShader
             }
             else {
-                // show dialog: This action will reset your progress, are you sure?
-                confirmDialog.clickedIndex = index
-                confirmDialog.clickedFragmentShader = modelData.fragmentShader
-                confirmDialog.open()
+                dialogs.shaderChangeDialog.openDialog(index, modelData.fragmentShader,
+                                                      function(index, fragmentShader) {
+                                                          internal.currentShader = index
+                                                          fragmentShaderTextArea.text = fragmentShader
+                                                          vertexShaderTextArea.text = Shaders.defaultVertexShader
+                                                      })
             }
         }
     }
     header: Item { width: 10; height: 1 }
     footer: Item { width: 10; height: 1 }
-
-    Dialog {
-        id: confirmDialog
-
-        property int clickedIndex
-        property string clickedFragmentShader
-
-        anchors.centerIn: parent
-        title: "This action will reset your progress, are you sure?"
-        standardButtons: Dialog.Ok | Dialog.Cancel
-        modal: true
-
-        onAccepted: {
-            internal.currentShader = clickedIndex
-            fragmentShaderTextArea.text = clickedFragmentShader
-            vertexShaderTextArea.text = Shaders.defaultVertexShader
-        }
-    }
 }

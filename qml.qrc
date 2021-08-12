@@ -19,6 +19,16 @@
         <file>resources/qml/effects/ShadowEffect.qml</file>
         <file>resources/qml/FloatingMenu.qml</file>
         <file>resources/qml/CustomUniforms.qml</file>
-        <file>resources/qml/CustomUniformDelegate.qml</file>
+        <file>resources/qml/Dialogs.qml</file>
+        <file>resources/qml/uniforms/Uniform.qml</file>
+        <file>resources/qml/uniforms/FloatUniform.qml</file>
+        <file>resources/qml/uniforms/Vector2dUniform.qml</file>
+        <file>resources/qml/uniforms/Vector3dUniform.qml</file>
+        <file>resources/qml/uniforms/Vector4dUniform.qml</file>
+        <file>resources/qml/uniforms/Sampler2dUniform.qml</file>
+        <file>resources/qml/uniforms/Matrix4x4Uniform.qml</file>
+        <file>resources/qml/uniforms/UniformSpinBox.qml</file>
+        <file>resources/qml/uniforms/Sampler2d.qml</file>
+        <file>resources/qml/uniforms/UniformButton.qml</file>
     </qresource>
 </RCC>

@@ -35,9 +35,7 @@ T.Button {
         Text {
             id: textItem
 
-            anchors {
-                centerIn: parent
-            }
+            anchors.centerIn: parent
             text: root.text
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter

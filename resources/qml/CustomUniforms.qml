@@ -1,19 +1,23 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 
+import com.dln.PropertyHandler 1.0
+
+import "uniforms"
+
 Rectangle {
     function toggleVisible() {
-        if (width === 385) {
+        if (width === 320) {
             width = 0
         }
         else {
-            width = 385
+            width = 320
         }
     }
 
     width: 0
     visible: width > 0
-    color: "#33352f"
+    color: "#272822"
     clip: true
 
     Behavior on width { NumberAnimation { easing.type: Easing.OutBack; duration: 300 } }
@@ -21,27 +25,27 @@ Rectangle {
     ListView {
         anchors {
             fill: parent
-            margins: 15
+            margins: 5
         }
-        spacing: 10
+        spacing: 5
         model: _dynamicPropertyHandler.dynamicPropertyModel
 
         header: Item {
             width: ListView.view.width
             height: headerDelegate.height + ListView.view.spacing
 
-            CustomUniformDelegate {
+            Uniform {
                 id: headerDelegate
 
                 width: parent.width
                 actionText: "+"
 
                 onActionClicked: {
-                    if (!name || !!name.match(/^ *$/)) {
+                    if (!headerDelegate.nameValid(name)) {
                         return // TODO: show dialog maybe
                     }
 
-                    if (_dynamicPropertyHandler.assignProperty(name, value)) {
+                    if (_dynamicPropertyHandler.assignProperty(name, type, value)) {
                         headerDelegate.reset()
                     }
 
@@ -50,8 +54,10 @@ Rectangle {
             }
         }
 
-        delegate: CustomUniformDelegate {
+        delegate: Uniform {
+            width: ListView.view.width
             name: NameRole
+            type: TypeRole
             value: ValueRole
             actionText: "x"
             readOnly: true

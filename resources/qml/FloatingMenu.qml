@@ -30,7 +30,7 @@ Column {
 
         property var menuModel: [
             [ "Custom\nUniforms", customUniforms.toggleVisible ],
-            [ "Open\nImage", fileDialog.open ],
+            [ "Open\nImage", function() { dialogs.openImageDialog.openDialog(function(source) { shaderOutput.source = source }) } ],
             [ fillModeText(), switchFillMode ]
         ]
     }
@@ -47,5 +47,4 @@ Column {
             }
         }
     }
-
 }

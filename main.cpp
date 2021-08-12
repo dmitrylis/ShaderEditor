@@ -25,11 +25,15 @@ int main(int argc, char *argv[])
     QFontDatabase::addApplicationFont("qrc:/resources/assets/fonts/consolas-bold-italic.ttf");
 
     // types registration
-    qmlRegisterType<GlslHighlighter>("com.dln.highlighter", 1, 0, "GlslHighlighter");
+    qmlRegisterType<GlslHighlighter>("com.dln.Highlighter", 1, 0, "GlslHighlighter");
+    qmlRegisterUncreatableType<DynamicPropertyHandler>("com.dln.PropertyHandler", 1, 0, "PropertyHandler", "c++ enums");
 
     // objects creation
     DynamicPropertyHandler dynamicPropertyHandler;
     QQmlApplicationEngine engine; // create objects before the engine!
+
+    // setup objects
+    dynamicPropertyHandler.setEngine(&engine);
 
     // context properties setting
     engine.rootContext()->setContextProperty("_dynamicPropertyHandler", &dynamicPropertyHandler);

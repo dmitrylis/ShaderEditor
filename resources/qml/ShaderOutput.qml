@@ -1,9 +1,9 @@
 import QtQuick 2.12
-import QtQuick.Dialogs 1.2
 
 Item {
     id: root
 
+    property alias source: sourceImage.source
     property string vertexShader: ""
     property string fragmentShader: ""
     property int status: 0
@@ -68,21 +68,6 @@ Item {
             right: parent.right
             bottom: parent.bottom
             margins: 20
-        }
-    }
-
-    FileDialog {
-        id: fileDialog
-
-        title: "Please choose a picture"
-        folder: shortcuts.pictures
-        nameFilters: [ "Image files (*.jpg *.jpeg *.png)" ]
-
-        onAccepted: {
-            const files = fileDialog.fileUrls
-            if (files.length > 0) {
-                sourceImage.source = files[0]
-            }
         }
     }
 }

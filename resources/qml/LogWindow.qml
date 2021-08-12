@@ -22,7 +22,7 @@ Rectangle {
     TextEdit {
         id: logTextEdit
 
-        text: !!shaderOutput.log ? shaderOutput.log : internal.statusToValue("Shaders compiled", "Shaders compiling...", "Unknown error occured")
+        text: !!shaderOutput.log ? shaderOutput.log : internal.statusToValue("Compiled", "Compiling...", "Unknown compilation error")
         readOnly: true
         padding: 5
         selectByMouse: !!shaderOutput.log
