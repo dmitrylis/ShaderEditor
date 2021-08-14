@@ -41,15 +41,9 @@ Rectangle {
                 actionText: "+"
 
                 onActionClicked: {
-                    if (!headerDelegate.nameValid(name)) {
-                        return // TODO: show dialog maybe
-                    }
-
                     if (_dynamicPropertyHandler.assignProperty(name, type, value)) {
                         headerDelegate.reset()
                     }
-
-                    // TODO: show dialog maybe
                 }
             }
         }

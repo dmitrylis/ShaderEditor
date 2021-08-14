@@ -12,10 +12,6 @@ Rectangle {
     property alias actionText: actionButton.text
     property bool readOnly: false
 
-    function nameValid(name) {
-        return !!name && !name.match(/^ *$/)
-    }
-
     function reset() {
         root.name = ""
         contentLoader.reset()
@@ -85,6 +81,8 @@ Rectangle {
     TextField {
         id: nameText
 
+        property int nameValid: _dynamicPropertyHandler.validateName(root.name)
+
         anchors {
             left: parent.left
             right: actionButton.left
@@ -104,8 +102,15 @@ Rectangle {
             color: nameText.activeFocus ? "#a8a8a1" : "#8b8b85"
         }
 
+        ToolTip {
+            x: -width - 15
+            y: (parent.height - height) * 0.5
+            visible: nameText.nameValid !== PropertyHandler.Valid && nameText.nameValid !== PropertyHandler.Empty
+            text: "Error code: " + nameText.nameValid // TODO: give a human readable text
+        }
+
         onAccepted: {
-            actionButton.clicked()
+            if (actionButton.enabled) actionButton.clicked()
         }
     }
 
@@ -117,7 +122,7 @@ Rectangle {
             top: headerItem.bottom
             margins: 5
         }
-        enabled: root.nameValid(root.name)
+        enabled: nameText.nameValid === PropertyHandler.Valid
 
         onClicked: {
             root.actionClicked(root.name, root.type, contentLoader.item.uniformValue)

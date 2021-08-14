@@ -95,3 +95,35 @@ bool DynamicPropertyHandler::updateProperty(const QString &name, const QVariant 
 
     return false;
 }
+
+DynamicPropertyHandler::PropertyNameCode DynamicPropertyHandler::validateName(const QString &name)
+{
+    if (name.isNull() || name.isEmpty())
+    {
+        return PropertyNameCode::Empty;
+    }
+
+    // If first character is invalid
+    if (!((name[0] >= 'a' && name[0] <= 'z') || (name[0] >= 'A' && name[0] <= 'Z') || name[0] == '_'))
+    {
+        return PropertyNameCode::FirstLetterInvalid;
+    }
+
+    // Traverse the string for the rest of the characters
+    for (int i = 1; i < name.length(); i++)
+    {
+        if (!((name[i] >= 'a' && name[i] <= 'z') || (name[i] >= 'A' && name[i] <= 'Z') || (name[i] >= '0' && name[i] <= '9') || name[i] == '_'))
+        {
+            return PropertyNameCode::Invalid;
+        }
+    }
+
+    // Check for keywords
+
+    // Check for reserved variables
+
+    // Check for existing variables
+
+    // String is a valid identifier
+    return PropertyNameCode::Valid;
+}

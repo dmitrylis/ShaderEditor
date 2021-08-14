@@ -25,6 +25,17 @@ public:
     };
     Q_ENUM(PropertyTypes)
 
+    enum PropertyNameCode {
+        Valid = 0,
+        Empty,
+        FirstLetterInvalid,
+        ReservedVariable,
+        ReservedKeyword,
+        VariableNameCollision,
+        Invalid
+    };
+    Q_ENUM(PropertyNameCode)
+
     explicit DynamicPropertyHandler(QObject *parent = nullptr);
 
     DynamicPropertyModel *dynamicPropertyModel() const;
@@ -35,6 +46,8 @@ public:
     Q_INVOKABLE bool assignProperty(const QString& name, int type, const QVariant &value);
     Q_INVOKABLE bool removeProperty(const QString& name);
     Q_INVOKABLE bool updateProperty(const QString& name, const QVariant &value);
+
+    Q_INVOKABLE PropertyNameCode validateName(const QString& name); // TODO: return PropertyNameCode
 
 signals:
     void sourceObjectChanged(QQuickItem* sourceObject);
