@@ -64,11 +64,12 @@ T.SpinBox {
 
         onWheel: {
             if (wheel.angleDelta.y > 0) {
-                value += stepSize * 0.5
+                root.increase()
             }
             else {
-                value -= stepSize * 0.5
+                root.decrease()
             }
+            root.valueModified()
         }
     }
 }
