@@ -19,10 +19,10 @@ int main(int argc, char *argv[])
     QSurfaceFormat::setDefaultFormat(format);
 
     // fonts loading
-    QFontDatabase::addApplicationFont("qrc:/resources/assets/fonts/consolas-regular.TTF");
-    QFontDatabase::addApplicationFont("qrc:/resources/assets/fonts/consolas-bold.TTF");
-    QFontDatabase::addApplicationFont("qrc:/resources/assets/fonts/consolas-italic.ttf");
-    QFontDatabase::addApplicationFont("qrc:/resources/assets/fonts/consolas-bold-italic.ttf");
+    QFontDatabase::addApplicationFont(":/resources/assets/fonts/consolas-regular.TTF");
+    QFontDatabase::addApplicationFont(":/resources/assets/fonts/consolas-bold.TTF");
+    QFontDatabase::addApplicationFont(":/resources/assets/fonts/consolas-italic.ttf");
+    QFontDatabase::addApplicationFont(":/resources/assets/fonts/consolas-bold-italic.ttf");
 
     // types registration
     qmlRegisterType<GlslHighlighter>("com.dln.Highlighter", 1, 0, "GlslHighlighter");
