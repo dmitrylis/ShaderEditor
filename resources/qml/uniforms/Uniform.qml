@@ -56,11 +56,42 @@ Rectangle {
         }
 
         ComboBox {
+            id: combo
+
             visible: !root.readOnly // TODO: loader
             anchors.fill: parent
             textRole: "text"
             valueRole: "value"
             currentIndex: root.type
+
+            indicator: Image {
+                anchors {
+                    right: parent.right
+                    verticalCenter: parent.verticalCenter
+                    verticalCenterOffset: 2
+                }
+                opacity: combo.down ? 0.5 : 1.0
+                source: "qrc:/resources/assets/images/down_arrow.png"
+            }
+
+            contentItem: Text {
+                text: "Create uniform: " + combo.displayText
+                verticalAlignment: Text.AlignVCenter
+                leftPadding: 15
+            }
+
+            background: Item {
+                clip: true
+
+                Rectangle {
+                    anchors {
+                        fill: parent
+                        bottomMargin: -5
+                    }
+                    color: "#a8a8a1"
+                    radius: 5
+                }
+            }
 
             model: [
                 { value: PropertyHandler.Float, text: "Float" },
