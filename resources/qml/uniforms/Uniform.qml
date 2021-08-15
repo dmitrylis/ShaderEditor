@@ -68,6 +68,7 @@ Rectangle {
                 anchors {
                     right: parent.right
                     verticalCenter: parent.verticalCenter
+                    rightMargin: 5
                     verticalCenterOffset: 2
                 }
                 opacity: combo.down ? 0.5 : 1.0
