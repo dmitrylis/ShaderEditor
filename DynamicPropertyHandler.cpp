@@ -5,7 +5,7 @@
 DynamicPropertyHandler::DynamicPropertyHandler(QObject *parent)
     : QObject(parent)
     , m_engine(nullptr)
-    , m_sourceObject(nullptr)
+    , m_shaderObject(nullptr)
 {
     m_dynamicPropertyModel = new DynamicPropertyModel(parent);
 }
@@ -20,37 +20,35 @@ void DynamicPropertyHandler::setEngine(QQmlApplicationEngine *engine)
     m_engine = engine;
 }
 
-void DynamicPropertyHandler::registerSourceObject(QQuickItem *object)
+void DynamicPropertyHandler::registerShaderObject(QQuickItem *object)
 {
-    if (m_sourceObject != object)
+    if (m_shaderObject != object)
     {
-        m_sourceObject = object;
-        emit sourceObjectChanged(object);
+        m_shaderObject = object;
+        emit shaderObjectChanged(object);
     }
 }
 
 bool DynamicPropertyHandler::assignProperty(const QString& name, int type, const QVariant &value)
 {
-    // create specific sampler2d object if needed
     QQuickItem *object = nullptr;
-    if (type == PropertyTypes::Sampler2d) // TODO: move to the separate function
+
+    // create specific sampler2d object if needed
+    if (type == PropertyTypes::Sampler2d)
     {
-        QQmlComponent component(m_engine, QUrl(QStringLiteral("qrc:/resources/qml/uniforms/Sampler2d.qml")));
-        object = qobject_cast<QQuickItem*>(component.createWithInitialProperties({ { "source", value.toString() } }));
-        QQmlEngine::setObjectOwnership(object, QQmlEngine::CppOwnership);
-        object->setParent(m_engine);
+        object = createSampler2dObject(value);
     }
 
     // set property
-    if (m_sourceObject && m_dynamicPropertyModel->prepend(name, type, value, object))
+    if (m_shaderObject && m_dynamicPropertyModel->prepend(name, type, value, object))
     {
         if (object)
         {
-            m_sourceObject->setProperty(name.toStdString().c_str(), QVariant::fromValue(object));
+            m_shaderObject->setProperty(name.toStdString().c_str(), QVariant::fromValue(object));
         }
         else
         {
-            m_sourceObject->setProperty(name.toStdString().c_str(), value);
+            m_shaderObject->setProperty(name.toStdString().c_str(), value);
         }
 
         return true;
@@ -63,9 +61,9 @@ bool DynamicPropertyHandler::removeProperty(const QString &name)
 {
     QQuickItem *object = m_dynamicPropertyModel->object(name);
 
-    if (m_sourceObject && m_dynamicPropertyModel->remove(name))
+    if (m_shaderObject && m_dynamicPropertyModel->remove(name))
     {
-        m_sourceObject->setProperty(name.toStdString().c_str(), QVariant());
+        m_shaderObject->setProperty(name.toStdString().c_str(), QVariant());
 
         if (object) // delete the object if it was created before
         {
@@ -80,7 +78,7 @@ bool DynamicPropertyHandler::removeProperty(const QString &name)
 
 bool DynamicPropertyHandler::updateProperty(const QString &name, const QVariant &value)
 {
-    if (m_sourceObject && m_dynamicPropertyModel->update(name, value))
+    if (m_shaderObject && m_dynamicPropertyModel->update(name, value))
     {
         QQuickItem *object = m_dynamicPropertyModel->object(name);
         if (object) // specific sampler2d case
@@ -89,7 +87,7 @@ bool DynamicPropertyHandler::updateProperty(const QString &name, const QVariant 
         }
         else
         {
-            m_sourceObject->setProperty(name.toStdString().c_str(), value);
+            m_shaderObject->setProperty(name.toStdString().c_str(), value);
         }
 
         return true;
@@ -108,7 +106,7 @@ DynamicPropertyHandler::PropertyNameErrorCode DynamicPropertyHandler::nameErrorC
     // If first character is invalid
     if (!((name[0] >= 'a' && name[0] <= 'z') || (name[0] >= 'A' && name[0] <= 'Z') || name[0] == '_'))
     {
-        return PropertyNameErrorCode::FirstLetterError;
+        return PropertyNameErrorCode::FirstCharError;
     }
 
     // Traverse the string for the rest of the characters
@@ -152,11 +150,21 @@ QString DynamicPropertyHandler::humanReadableNameErrorCode(DynamicPropertyHandle
 {
     switch (nameErrorCode)
     {
-    case PropertyNameErrorCode::FirstLetterError: return "Uniform name can't be started with this character";
+    case PropertyNameErrorCode::FirstCharError: return "Uniform name can't be started with this character";
     case PropertyNameErrorCode::ReservedKeyword: return "Uniform name matches a reserved keyword";
     case PropertyNameErrorCode::ReservedName: return "Uniform name matches a reserved name";
     case PropertyNameErrorCode::NameCollision: return "Uniform with this name already exists";
     case PropertyNameErrorCode::Invalid: return "Invalid uniform name";
     default:  return "";
     }
+}
+
+QQuickItem *DynamicPropertyHandler::createSampler2dObject(const QVariant &value)
+{
+    QQmlComponent component(m_engine, QUrl(QStringLiteral("qrc:/resources/qml/uniforms/Sampler2d.qml")));
+    QQuickItem *object = qobject_cast<QQuickItem*>(component.createWithInitialProperties({ { "source", value.toString() } }));
+    QQmlEngine::setObjectOwnership(object, QQmlEngine::CppOwnership);
+    object->setParent(m_engine);
+
+    return object;
 }

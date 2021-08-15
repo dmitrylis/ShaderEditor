@@ -189,13 +189,21 @@ QSet<QString> UNIFORMS {
     , "gl_EyePlane"
     , "gl_ObjectPlane"
 
+    // Qt uniforms
     , "qt_TexCoord0"
     , "qt_Opacity"
     , "qt_MultiTexCoord0"
     , "qt_Matrix"
     , "qt_Vertex"
-
+    , "source"
     , "coord"
+
+    // my uniforms
+    , "source"
+    , "u_resolution"
+    , "u_mouse"
+    , "u_time"
+
     , "TEXCOORD"
     , "TEXCOORD0"
     , "SV_POSITION"

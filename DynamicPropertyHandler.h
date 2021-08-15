@@ -11,7 +11,6 @@ class DynamicPropertyHandler : public QObject
 {
     Q_OBJECT
     Q_PROPERTY(DynamicPropertyModel* dynamicPropertyModel READ dynamicPropertyModel CONSTANT)
-    Q_PROPERTY(QQuickItem* sourceObject MEMBER m_sourceObject NOTIFY sourceObjectChanged)
 
 public:
     enum PropertyTypes {
@@ -28,7 +27,7 @@ public:
     enum PropertyNameErrorCode {
         Valid = 0,
         Empty,
-        FirstLetterError,
+        FirstCharError,
         ReservedKeyword,
         ReservedName,
         NameCollision,
@@ -41,7 +40,7 @@ public:
     DynamicPropertyModel *dynamicPropertyModel() const;
 
     void setEngine(QQmlApplicationEngine *engine);
-    Q_INVOKABLE void registerSourceObject(QQuickItem *object);
+    Q_INVOKABLE void registerShaderObject(QQuickItem *object);
 
     Q_INVOKABLE bool assignProperty(const QString& name, int type, const QVariant &value);
     Q_INVOKABLE bool removeProperty(const QString& name);
@@ -51,12 +50,15 @@ public:
     Q_INVOKABLE QString humanReadableNameErrorCode(PropertyNameErrorCode nameErrorCode);
 
 signals:
-    void sourceObjectChanged(QQuickItem* sourceObject);
+    void shaderObjectChanged(QQuickItem* shaderObject);
+
+private:
+    QQuickItem *createSampler2dObject(const QVariant &value);
 
 protected:
     QQmlApplicationEngine *m_engine;
     DynamicPropertyModel *m_dynamicPropertyModel;
-    QQuickItem *m_sourceObject;
+    QQuickItem *m_shaderObject;
 };
 
 #endif // DYNAMICPROPERTYHANDLER_H
