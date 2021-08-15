@@ -32,27 +32,23 @@ T.SpinBox {
         clip: true
     }
 
-    up.indicator: Text {
+    up.indicator: Image {
         x: parent.width - width
-        height: parent.height * 0.5
         width: 30
-        verticalAlignment: Qt.AlignVCenter
-        horizontalAlignment: Qt.AlignHCenter
-        text: "+"
+        height: parent.height * 0.5
         opacity: up.pressed ? 0.5 : 1.0
+        source: "qrc:/resources/assets/images/up_arrow.png"
     }
 
     up.onPressedChanged: root.forceActiveFocus()
 
-    down.indicator: Text {
+    down.indicator: Image {
         x: parent.width - width
         y: parent.height * 0.5
-        height: parent.height * 0.5
         width: 30
-        verticalAlignment: Qt.AlignVCenter
-        horizontalAlignment: Qt.AlignHCenter
-        text: "-"
+        height: parent.height * 0.5
         opacity: down.pressed ? 0.5 : 1.0
+        source: "qrc:/resources/assets/images/down_arrow.png"
     }
 
     down.onPressedChanged: root.forceActiveFocus()

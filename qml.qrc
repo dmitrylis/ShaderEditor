@@ -30,5 +30,7 @@
         <file>resources/qml/uniforms/UniformSpinBox.qml</file>
         <file>resources/qml/uniforms/Sampler2d.qml</file>
         <file>resources/qml/uniforms/UniformButton.qml</file>
+        <file>resources/assets/images/up_arrow.png</file>
+        <file>resources/assets/images/down_arrow.png</file>
     </qresource>
 </RCC>
