@@ -75,6 +75,7 @@ Item {
 
                 Text {
                     anchors.right: parent.right
+                    height: fontMetrics.visibleHeight
                     font.family: "Consolas"
                     text: index + 1
                     color: "#9d9d96"
@@ -87,12 +88,14 @@ Item {
     FontMetrics {
         id: fontMetrics
 
+        property real visibleHeight: textArea.contentHeight / textArea.lineCount // workaround
+
         font: textArea.font
     }
 
     Rectangle {
         y: scrollArea.anchors.topMargin + scrollArea.contentItem.y + textArea.cursorRectangle.y
-        height: fontMetrics.height
+        height: fontMetrics.visibleHeight
         width: parent.width
         color: "white"
         opacity: 0.027
