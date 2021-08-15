@@ -105,12 +105,12 @@ Rectangle {
         ToolTip {
             x: -width - 15
             y: (parent.height - height) * 0.5
-            visible: nameText.nameErrorCode !== PropertyHandler.Valid && nameText.nameErrorCode !== PropertyHandler.Empty
+            visible: !root.readOnly && nameText.nameErrorCode !== PropertyHandler.Valid && nameText.nameErrorCode !== PropertyHandler.Empty
             text: _dynamicPropertyHandler.humanReadableNameErrorCode(nameText.nameErrorCode)
         }
 
         onAccepted: {
-            if (actionButton.enabled) actionButton.clicked()
+            if (!root.readOnly && actionButton.enabled) actionButton.clicked()
         }
     }
 
@@ -122,7 +122,7 @@ Rectangle {
             top: headerItem.bottom
             margins: 5
         }
-        enabled: nameText.nameErrorCode === PropertyHandler.Valid
+        enabled: root.readOnly || nameText.nameErrorCode === PropertyHandler.Valid
 
         onClicked: {
             root.actionClicked(root.name, root.type, contentLoader.item.uniformValue)
