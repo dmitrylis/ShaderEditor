@@ -152,7 +152,7 @@ QString DynamicPropertyHandler::humanReadableNameErrorCode(DynamicPropertyHandle
 {
     switch (nameErrorCode)
     {
-    case PropertyNameErrorCode::FirstLetterError: return "Can't start a uniform name with this character";
+    case PropertyNameErrorCode::FirstLetterError: return "Uniform name can't be started with this character";
     case PropertyNameErrorCode::ReservedKeyword: return "Uniform name matches a reserved keyword";
     case PropertyNameErrorCode::ReservedName: return "Uniform name matches a reserved name";
     case PropertyNameErrorCode::NameCollision: return "Uniform with this name already exists";
