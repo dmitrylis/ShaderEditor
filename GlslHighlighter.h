@@ -23,7 +23,7 @@ protected:
     void highlightBlock(const QString &text);
 
 private:
-    void addPatternFromList(QStringList &list, QTextCharFormat &format);
+    void addPatternFromSet(QSet<QString> &set, QTextCharFormat &format);
 
     struct HighlightingRule
     {

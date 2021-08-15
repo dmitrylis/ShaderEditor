@@ -135,3 +135,8 @@ QQuickItem *DynamicPropertyModel::object(const QString& name) const
     }
     return nullptr;
 }
+
+bool DynamicPropertyModel::contains(const QString &name) const
+{
+    return m_propertyList.contains(Property(name));
+}

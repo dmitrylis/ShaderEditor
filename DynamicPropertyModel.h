@@ -5,18 +5,13 @@
 #include <QSet>
 #include <QQuickItem>
 
-namespace {
-const QSet<QString> RESERVED_NAMES { "source", "qt_Opacity", "qt_TexCoord0", "gl_FragColor", "u_resolution", "u_mouse", "u_time" }; // TODO: store in highlighter
-}
-
-
 struct Property {
     Property(const QString& name) : m_name(name) {}
     Property(const QString& name, int type, const QVariant &value, QQuickItem *object = nullptr) : m_name(name), m_type(type), m_value(value), m_object(object) {}
 
     bool operator== (const Property& other) const
     {
-        return this->m_name == other.m_name && !RESERVED_NAMES.contains(other.m_name);
+        return this->m_name == other.m_name;
     }
 
     QString m_name;
@@ -49,6 +44,7 @@ public:
     bool update(const QString& name, const QVariant &value);
 
     QQuickItem *object(const QString& name) const;
+    bool contains(const QString& name) const;
 
 protected:
     QList<Property> m_propertyList;

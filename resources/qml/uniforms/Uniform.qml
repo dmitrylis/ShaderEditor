@@ -81,7 +81,7 @@ Rectangle {
     TextField {
         id: nameText
 
-        property int nameValid: _dynamicPropertyHandler.validateName(root.name)
+        property int nameErrorCode: _dynamicPropertyHandler.nameErrorCode(root.name)
 
         anchors {
             left: parent.left
@@ -105,8 +105,8 @@ Rectangle {
         ToolTip {
             x: -width - 15
             y: (parent.height - height) * 0.5
-            visible: nameText.nameValid !== PropertyHandler.Valid && nameText.nameValid !== PropertyHandler.Empty
-            text: "Error code: " + nameText.nameValid // TODO: give a human readable text
+            visible: nameText.nameErrorCode !== PropertyHandler.Valid && nameText.nameErrorCode !== PropertyHandler.Empty
+            text: _dynamicPropertyHandler.humanReadableNameErrorCode(nameText.nameErrorCode)
         }
 
         onAccepted: {
@@ -122,7 +122,7 @@ Rectangle {
             top: headerItem.bottom
             margins: 5
         }
-        enabled: nameText.nameValid === PropertyHandler.Valid
+        enabled: nameText.nameErrorCode === PropertyHandler.Valid
 
         onClicked: {
             root.actionClicked(root.name, root.type, contentLoader.item.uniformValue)

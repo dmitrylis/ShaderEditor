@@ -1,5 +1,7 @@
 #include "DynamicPropertyHandler.h"
 
+#include "Dictionary.h"
+
 DynamicPropertyHandler::DynamicPropertyHandler(QObject *parent)
     : QObject(parent)
     , m_engine(nullptr)
@@ -96,17 +98,17 @@ bool DynamicPropertyHandler::updateProperty(const QString &name, const QVariant 
     return false;
 }
 
-DynamicPropertyHandler::PropertyNameCode DynamicPropertyHandler::validateName(const QString &name)
+DynamicPropertyHandler::PropertyNameErrorCode DynamicPropertyHandler::nameErrorCode(const QString &name)
 {
     if (name.isNull() || name.isEmpty())
     {
-        return PropertyNameCode::Empty;
+        return PropertyNameErrorCode::Empty;
     }
 
     // If first character is invalid
     if (!((name[0] >= 'a' && name[0] <= 'z') || (name[0] >= 'A' && name[0] <= 'Z') || name[0] == '_'))
     {
-        return PropertyNameCode::FirstLetterInvalid;
+        return PropertyNameErrorCode::FirstLetterError;
     }
 
     // Traverse the string for the rest of the characters
@@ -114,16 +116,47 @@ DynamicPropertyHandler::PropertyNameCode DynamicPropertyHandler::validateName(co
     {
         if (!((name[i] >= 'a' && name[i] <= 'z') || (name[i] >= 'A' && name[i] <= 'Z') || (name[i] >= '0' && name[i] <= '9') || name[i] == '_'))
         {
-            return PropertyNameCode::Invalid;
+            return PropertyNameErrorCode::Invalid;
         }
     }
 
     // Check for keywords
+    if (Dictionary::conditionals().contains(name)
+            || Dictionary::statements().contains(name)
+            || Dictionary::repeats().contains(name)
+            || Dictionary::types().contains(name)
+            || Dictionary::starageClasses().contains(name))
+    {
+        return PropertyNameErrorCode::ReservedKeyword;
+    }
 
     // Check for reserved variables
+    if (Dictionary::functions().contains(name)
+            || Dictionary::states().contains(name)
+            || Dictionary::uniforms().contains(name))
+    {
+        return PropertyNameErrorCode::ReservedName;
+    }
 
-    // Check for existing variables
+    // Check for existing variables with the same name
+    if (m_dynamicPropertyModel->contains(name))
+    {
+        return PropertyNameErrorCode::NameCollision;
+    }
 
     // String is a valid identifier
-    return PropertyNameCode::Valid;
+    return PropertyNameErrorCode::Valid;
+}
+
+QString DynamicPropertyHandler::humanReadableNameErrorCode(DynamicPropertyHandler::PropertyNameErrorCode nameErrorCode)
+{
+    switch (nameErrorCode)
+    {
+    case PropertyNameErrorCode::FirstLetterError: return "Can't start a uniform name with this character";
+    case PropertyNameErrorCode::ReservedKeyword: return "Uniform name matches a reserved keyword";
+    case PropertyNameErrorCode::ReservedName: return "Uniform name matches a reserved name";
+    case PropertyNameErrorCode::NameCollision: return "Uniform with this name already exists";
+    case PropertyNameErrorCode::Invalid: return "Invalid uniform name";
+    default:  return "";
+    }
 }
