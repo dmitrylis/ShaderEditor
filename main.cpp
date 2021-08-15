@@ -38,14 +38,8 @@ int main(int argc, char *argv[])
     // context properties setting
     engine.rootContext()->setContextProperty("_dynamicPropertyHandler", &dynamicPropertyHandler);
 
-    const QUrl url(QStringLiteral("qrc:/resources/qml/main.qml"));
-    QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
-                     &app, [url](QObject *obj, const QUrl &objUrl) {
-        if (!obj && url == objUrl)
-            QCoreApplication::exit(-1);
-    }, Qt::QueuedConnection);
-
-    engine.load(url);
+    // load main qml file
+    engine.load(QUrl(QStringLiteral("qrc:/resources/qml/main.qml")));
 
     return app.exec();
 }

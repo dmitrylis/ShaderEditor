@@ -32,5 +32,7 @@
         <file>resources/qml/uniforms/UniformButton.qml</file>
         <file>resources/assets/images/up_arrow.png</file>
         <file>resources/assets/images/down_arrow.png</file>
+        <file>resources/assets/images/remove.png</file>
+        <file>resources/assets/images/add.png</file>
     </qresource>
 </RCC>

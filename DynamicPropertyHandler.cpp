@@ -35,8 +35,8 @@ bool DynamicPropertyHandler::assignProperty(const QString& name, int type, const
     QQuickItem *object = nullptr;
     if (type == PropertyTypes::Sampler2d) // TODO: move to the separate function
     {
-        QQmlComponent component(m_engine, QUrl("qrc:/resources/qml/uniforms/Sampler2d.qml"));
-        object = qobject_cast<QQuickItem*>(component.createWithInitialProperties({ { "visible", false }, { "source", value.toString() } }));
+        QQmlComponent component(m_engine, QUrl(QStringLiteral("qrc:/resources/qml/uniforms/Sampler2d.qml")));
+        object = qobject_cast<QQuickItem*>(component.createWithInitialProperties({ { "source", value.toString() } }));
         QQmlEngine::setObjectOwnership(object, QQmlEngine::CppOwnership);
         object->setParent(m_engine);
     }

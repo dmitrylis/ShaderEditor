@@ -38,7 +38,7 @@ Rectangle {
                 id: headerDelegate
 
                 width: parent.width
-                actionText: "+"
+                actionIcon: "qrc:/resources/assets/images/add.png"
 
                 onActionClicked: {
                     if (_dynamicPropertyHandler.assignProperty(name, type, value)) {
@@ -53,7 +53,7 @@ Rectangle {
             name: NameRole
             type: TypeRole
             value: ValueRole
-            actionText: "x"
+            actionIcon: "qrc:/resources/assets/images/remove.png"
             readOnly: true
 
             onValueModified: {

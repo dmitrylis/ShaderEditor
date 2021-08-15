@@ -9,7 +9,7 @@ Rectangle {
     property alias name: nameText.text
     property int type: 0
     property var value: undefined
-    property alias actionText: actionButton.text
+    property alias actionIcon: actionButton.icon.source
     property bool readOnly: false
 
     function reset() {

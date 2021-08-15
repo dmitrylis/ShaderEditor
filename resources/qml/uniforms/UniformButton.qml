@@ -34,6 +34,12 @@ T.Button {
             verticalAlignment: Text.AlignVCenter
             color: "black"
         }
+
+        Image {
+            anchors.centerIn: parent
+            visible: status === Image.Ready && !textItem.text
+            source: root.icon.source
+        }
     }
 
     states: [
