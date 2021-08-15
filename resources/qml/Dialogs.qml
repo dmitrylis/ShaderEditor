@@ -7,7 +7,7 @@ Item {
     property Controls2.Dialog shaderChangeDialog: Controls2.Dialog {
         property int index
         property string fragmentShader
-        property var acceptAction // params: index, fragmentShader, acceptAction
+        property var acceptAction // params: index, fragmentShader
 
         function openDialog(index, fragmentShader, acceptAction) {
             shaderChangeDialog.index = index
@@ -27,7 +27,7 @@ Item {
     }
 
     property Dialogs1.FileDialog openImageDialog: Dialogs1.FileDialog {
-        property var acceptAction // params: acceptAction
+        property var acceptAction // params: source
 
         function openDialog(acceptAction) {
             openImageDialog.acceptAction = acceptAction
@@ -43,6 +43,26 @@ Item {
             if (files.length > 0) {
                 openImageDialog.acceptAction(files[0])
             }
+        }
+    }
+
+    property Controls2.Dialog removeUniformDialog: Controls2.Dialog {
+        property string name
+        property var acceptAction // params: name
+
+        function openDialog(name, acceptAction) {
+            removeUniformDialog.name = name
+            removeUniformDialog.acceptAction = acceptAction
+            open()
+        }
+
+        anchors.centerIn: parent
+        title: "Do you really want to remove this uniform?"
+        standardButtons: Controls2.Dialog.Ok | Controls2.Dialog.Cancel
+        modal: true
+
+        onAccepted: {
+            removeUniformDialog.acceptAction(removeUniformDialog.name)
         }
     }
 }

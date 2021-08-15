@@ -61,7 +61,7 @@ Rectangle {
             }
 
             onActionClicked: {
-                _dynamicPropertyHandler.removeProperty(NameRole)
+                dialogs.removeUniformDialog.openDialog(NameRole, function(name) { _dynamicPropertyHandler.removeProperty(name) })
             }
         }
     }
